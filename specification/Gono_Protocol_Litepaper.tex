@@ -1,0 +1,196 @@
+
+\documentclass[12pt, a4paper]{article}
+
+% ─── Packages ───────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{abstract}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+
+% ─── Colours ────────────────────────────────────────────────────────────────
+\definecolor{primary}{HTML}{1A237E}
+\definecolor{accent}{HTML}{0288D1}
+\definecolor{lightgray}{HTML}{F5F5F5}
+\definecolor{darkgray}{HTML}{37474F}
+\definecolor{highlight}{HTML}{E3F2FD}
+
+% ─── Hyperref Setup ─────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=accent,
+  citecolor=darkgray,
+  pdftitle={Gono Protocol Litepaper: Securing Truth, Privacy, and Fair Compensation},
+  pdfauthor={Hossain, J. and Alam, M.},
+}
+
+% ─── Header / Footer ────────────────────────────────────────────────────────
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{darkgray}\textit{Gono Protocol --- Litepaper}}
+\fancyhead[R]{\small\color{darkgray}v1.0 · 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ─── Section Formatting ─────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{primary}}{{\thesection}}{1em}{}[\vspace{0.2em}\hrule\vspace{0.4em}]
+\titleformat{\subsection}{\normalsize\bfseries\color{darkgray}}{\thesubsection}{1em}{}
+
+% ─── tcolorbox Styles ───────────────────────────────────────────────────────
+\tcbuselibrary{skins, breakable}
+\newtcolorbox{notebox}{
+  colback=highlight, colframe=accent, arc=4pt,
+  boxrule=0.8pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  breakable
+}
+
+\newtcolorbox{benefitbox}[1]{
+  colback=white, colframe=primary, arc=4pt, title=#1,
+  fonttitle=\bfseries, coltitle=white, boxrule=1pt,
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  breakable
+}
+
+% ────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ─── Title Page ─────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{1.5cm}
+
+  {\Huge\bfseries\color{primary}
+    Gono Protocol Litepaper:\\[0.4em]
+    Securing Truth, Privacy, and\\[0.4em]
+    Fair Compensation in the Digital Age
+  \par}
+
+  \vspace{1.2cm}
+  \noindent\rule{\linewidth}{1.5pt}
+  \vspace{0.6cm}
+
+  {\large\color{darkgray}
+    \textbf{Protocol Specification}\\[0.3em]
+    Protocol Overview
+  \par}
+
+  \vspace{1.2cm}
+
+  {\normalsize
+    \textbf{Jonayet Hossain} \quad \textbf{Maharaj Alam} \\[0.5em]
+    {\small Department of Computer Science \& Engineering, MBSTU, Tangail, Bangladesh}
+  \par}
+
+  \vspace{0.8cm}
+  \noindent\rule{\linewidth}{0.5pt}
+  \vspace{0.4cm}
+
+  {\small\color{darkgray}
+    Version 1.0 --- February 2026
+  \par}
+
+  \vfill
+
+  \begin{notebox}
+    \small\centering
+    \textbf{Abstract.}~
+    In today's digital world, it is incredibly difficult to know what is true, who owns what, and how creators can be fairly paid---especially with the rapid rise of Artificial Intelligence (AI). The Gono Protocol is a new technology designed to solve these problems. It guarantees that digital media is authentic, ensures content can never be quietly deleted or censored, protects the identities of journalists, and allows AI systems to instantly pay creators for using their work.
+  \end{notebox}
+
+\end{titlepage}
+
+\newpage
+
+% ────────────────────────────────────────────────────────────────────────────
+\section{The Problems We Face}
+
+Our current digital ecosystem is broken in several critical ways:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{The Trust Crisis:} With deepfakes and misinformation spreading rapidly, proving the true origin of a photo, video, or article is harder than ever.
+    \item \textbf{Vanishing History:} Important articles and media are often deleted, altered, or lost when websites shut down (the classic ``404 Not Found'' problem).
+    \item \textbf{Privacy Risks:} Whistleblowers and investigative journalists risk their personal safety when publishing sensitive, high-stakes truths.
+    \item \textbf{The AI Data Problem:} AI models constantly consume data and content to get smarter, but the original human creators rarely get credited or paid.
+\end{itemize}
+
+% ────────────────────────────────────────────────────────────────────────────
+\section{The Gono Protocol Solution}
+
+The Gono Protocol is built like a set of digital Lego blocks. Developers can use these blocks to build fair, secure, and permanent apps.
+
+\subsection{1. The Foundation: Unbreakable Security}
+We use a highly secure blockchain network (Polkadot) to protect the system. This means the protocol is shielded against hacking, state-level censorship, and manipulation. No single corporation or government can shut it down.
+
+\subsection{2. The Core Record: The Digital Receipt}
+Every piece of media registered on Gono gets a permanent, unchangeable ``Digital Receipt'' (known technically as ERC-7053). This receipt proves exactly when the content was created, who created it, and keeps a clear record of any changes made to it over time. 
+
+\subsection{3. The Add-On Features (Service Modules)}
+
+\begin{benefitbox}{Permanent Storage}
+    Users can pay a small, one-time fee to store their file forever across multiple decentralized hard drives. Even if one network goes down, the file survives.
+\end{benefitbox}
+
+\begin{benefitbox}{Community Fact-Checking}
+    A system where a community of analysts and AI work together to verify if content is real or fake. Good fact-checkers build a strong reputation, while bad actors lose influence.
+\end{benefitbox}
+
+\begin{benefitbox}{Ironclad Privacy}
+    Journalists can mathematically prove they are legitimate, verified humans (e.g., holding a press badge) without ever revealing their actual name or identity.
+\end{benefitbox}
+
+\begin{benefitbox}{Instant Micro-payments}
+    A built-in payment system that allows AI bots to automatically pay fractions of a cent to creators every time they access their data.
+\end{benefitbox}
+
+% ────────────────────────────────────────────────────────────────────────────
+\section{How It Works: The Journey of a News Story}
+
+Imagine a journalist is reporting on a controversial story using the Gono Protocol:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Capture:} The journalist takes a photo. The system immediately tags it with a digital fingerprint and hidden data. If needed, they use the Privacy feature to stay anonymous.
+    \item \textbf{Store:} The journalist chooses to save the photo on Gono's permanent storage networks so it can never be deleted.
+    \item \textbf{Verify:} Fact-checkers and AI review the photo to confirm it hasn't been photoshopped, giving it a high trust score.
+    \item \textbf{Certify:} The final, verified ``Digital Receipt'' is stamped onto the blockchain permanently.
+    \item \textbf{Check:} Any reader can view this receipt to see the photo's complete, untampered history and prove it is real.
+\end{enumerate}
+
+% ────────────────────────────────────────────────────────────────────────────
+\section{The GONO Token: Powering the Network}
+
+The entire system is fueled by its own digital currency, the \textbf{GONO token}. It is used to:
+
+\begin{itemize}[leftmargin=*]
+    \item Pay the tiny processing fees required to create digital receipts.
+    \item Fund the permanent storage of important files.
+    \item Act as the currency for instant AI-to-Creator micro-payments.
+    \item Give users voting rights on how the protocol is run, upgraded, and governed.
+\end{itemize}
+
+% ────────────────────────────────────────────────────────────────────────────
+\section{Conclusion}
+
+The Gono Protocol is more than just a technology platform; it is an infrastructure to restore truth to the internet. By combining permanent storage, anonymous verification, community fact-checking, and fair AI payments, Gono ensures that history is preserved, creators are paid, and readers can trust what they see.
+
+\end{document}
