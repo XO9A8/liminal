@@ -45,7 +45,7 @@
   urlcolor=accent,
   citecolor=darkgray,
   pdftitle={A Graph-Augmented Bayesian Simulation Engine for SME Marketing Intelligence in Emerging Markets},
-  pdfauthor={Hossain, J. and Alam, M.},
+  pdfauthor={Hossain, J. and Alam, M. and Jahan, S.},
 }
 
 % ─── Header / Footer ────────────────────────────────────────────────────────
@@ -97,7 +97,7 @@
   \vspace{1.2cm}
 
   {\normalsize
-    \textbf{Jonayet Hossain} \quad \textbf{Maharaj Alam} \\[0.5em]
+    \textbf{Jonayet Hossain} \quad \textbf{Maharaj Alam} \quad \textbf{Sinthiya Jahan} \\[0.5em]
     {\small Department of Computer Science \& Engineering, MBSTU, Tangail, Bangladesh}
   \par}
 
@@ -131,7 +131,7 @@
     is ingested autonomously via Firecrawl and Crawl4AI, while Bangla-native NLP is delivered
     through \texttt{csebuetnlp/banglabert} and \texttt{BAAI/bge-m3} embeddings. The
     platform is deployed on Vercel using Next.js~15 with aggressive low-bandwidth edge
-    optimisations and an offline-capable local LLM fallback via Ollama (Qwen3-8B), ensuring
+    optimisations and an offline-capable local LLM fallback via Ollama (Gemma4), ensuring
     accessibility on the 2G/3G infrastructure prevalent across rural Bangladesh. All
     simulation outputs are grounded by SHAP-guaranteed deterministic explanations
     before synthesis into a natural-language executive report.
@@ -572,7 +572,7 @@ application.
   (llm) at (0,-1.7)
   {\textbf{Layer 5: LLM Orchestration}\\
    LlamaIndex $\cdot$ GraphRAG Pipeline $\cdot$
-   Claude 3.5 Sonnet / Gemini Flash $\cdot$ Qwen3-8B (offline fallback)};
+   Claude 3.5 Sonnet / Gemini Flash $\cdot$ Gemma4 (offline fallback)};
 
 % Layer 4 – AI
 \node[layer, fill=blue!8!white, draw=blue!50!black]
@@ -669,7 +669,7 @@ decoupled from the frontend by a Celery task queue backed by Redis:
 
 The LLM layer bridges raw simulation outputs and natural-language explainability via the
 GraphRAG pipeline (Section~\ref{sec:graphrag}) orchestrated by \textbf{LlamaIndex}. Cloud inference uses Claude~3.5 Sonnet
-or Gemini~1.5 Flash via the Vercel AI SDK. An offline fallback deploys \textbf{Qwen3-8B}
+or Gemini~1.5 Flash via the Vercel AI SDK. An offline fallback deploys \textbf{Gemma4}
 locally via Ollama, with a \emph{Fast Profile} that suppresses the internal reasoning
 chain for routine explanations and a \emph{Deep Profile} reserved for complex scenario
 ideation.
@@ -836,11 +836,11 @@ high latency and packet loss. The deployment applies four layers of mitigation:
 \subsection{Offline / Rural Fallback Mode}
 
 For users with intermittent connectivity, the architecture provides an offline-capable
-local LLM profile. \textbf{Qwen3-8B} is deployed via \textbf{Ollama} on the user's
-device. A \emph{Fast Profile} disables the model's internal reasoning chain
-(\texttt{<|think|>} token suppression) for routine explanations, ensuring rapid response
-times on low-power hardware. A \emph{Deep Profile} enables full reasoning for complex
-scenario ideation when resources permit \cite{blueprint2026}.
+local LLM profile. \textbf{Gemma4} is deployed via \textbf{Ollama} on the user's
+device. A \emph{Fast Profile} configures the model for concise, low-latency
+explanations on resource-constrained hardware. A \emph{Deep Profile} enables
+full extended-thinking reasoning for complex scenario ideation when resources
+permit \cite{blueprint2026}.
 
 % ────────────────────────────────────────────────────────────────────────────
 \section{Executive Dashboard and Decision-Support Metrics}
@@ -933,6 +933,190 @@ refining complex state logic. This sequential pipeline---Claude Code for broad s
 Cursor for visual polish---condenses development timelines from months to hours.
 
 % ────────────────────────────────────────────────────────────────────────────
+\section{Business Model and Commercialisation Strategy}
+\label{sec:business}
+
+The engineering architecture described in the preceding sections must be underpinned by
+a viable, scalable commercialisation strategy. This section synthesises market research
+on competitive pricing, infrastructure economics, distribution mechanics, and emerging
+market localisation into a unified business model for the Brand Simulation Engine.
+
+\subsection{Value Proposition and Algorithmic Differentiation}
+
+The platform's core commercial moat is its \textbf{proprietary, multi-engine simulation
+stack}. Competing enterprise solutions such as Google Meridian, Meta Robyn, and Recast
+either repackage open-source MMM libraries with a modern UI or remain architecturally
+confined to single-paradigm regression. The Brand Simulation Engine is the first system
+to fuse Bayesian MMM, Agent-Based Modelling, Markov Chain attribution, and NSGA-II
+genetic optimisation within a unified GraphRAG backend---delivering causally rigorous,
+pre-launch campaign simulation rather than retrospective reporting.
+
+This algorithmic differentiation enables the platform to demonstrably improve client
+Return on Ad Spend (ROAS) within 90~days of deployment, transforming the subscription
+from a discretionary analytics expense into a revenue-generating investment with a
+quantifiable payback period.
+
+\subsection{Revenue Streams and Tiered Pricing Architecture}
+
+The pricing model follows a hybrid B2B SaaS structure designed to capture value across
+the full market spectrum:
+
+\begin{table}[H]
+  \centering
+  \caption{Tiered SaaS Pricing Architecture}
+  \label{tab:pricing}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{2.5cm} p{3.0cm} p{3.5cm} X}
+    \toprule
+    Tier & Target Segment & Monthly Price & Key Inclusions \\
+    \midrule
+    Starter
+      & F-commerce \newline micro-merchants
+      & Tk\,1{,}500--2{,}000 \newline(\textasciitilde\$14--18)
+      & Single-channel MMM, basic dashboard, Bangla UI, bKash billing \\
+    \addlinespace
+    Growth
+      & SMEs with \newline\$5K--50K ad spend
+      & \$99--299/month
+      & Multi-channel MMM + ABM, Markov attribution, GraphRAG insights, 5~simulation runs/month \\
+    \addlinespace
+    Professional
+      & Mid-market brands \newline\$50K--500K spend
+      & \$499--999/month
+      & Unlimited simulations, NSGA-II optimisation, SHAP explainability, white-label reporting \\
+    \addlinespace
+    Enterprise
+      & Brands with \newline\$500K+ spend
+      & Custom annual \newline contract
+      & Dedicated infrastructure, custom model calibration, API access, unlimited seats, SLA \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The \textbf{Starter} tier is strategically priced at purchasing-power parity for
+Bangladesh, ensuring accessibility for the 300{,}000+ F-commerce merchants operating
+on micro-budgets of \$20--50/month. The \textbf{Enterprise} tier employs custom
+contracts anchored to the client's aggregate monthly media spend and channel count,
+with unlimited user seats to maximise internal adoption and reduce churn.
+
+Expansion revenue is captured through usage-based overages (additional simulation
+batches beyond tier limits) and modular add-ons such as promotional depth optimisation
+(priced at 25\% of the base subscription) and competitor intelligence feeds.
+
+\subsection{Infrastructure Cost Optimisation}
+
+The business model's gross margin is structurally protected by a \textbf{bifurcated
+serverless architecture} that eliminates idle compute costs:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPU-Bound Workloads} (API routing, data ingestion, UI rendering) execute
+        on \textbf{AWS Lambda} using ARM (Graviton) processors, achieving up to 36\%
+        cost reduction versus x86 configurations. The free tier (1M invocations/month)
+        subsidises early-stage operations.
+  \item \textbf{GPU-Bound Workloads} (Bayesian inference via PyMC, NSGA-II optimisation
+        loops, model training) execute on \textbf{Modal}'s serverless GPU infrastructure,
+        which auto-scales from zero and provisions containers in under one second.
+        Documented benchmarks demonstrate 12--20\% cost savings versus reserved GPU
+        instances for bursty ML workloads.
+\end{itemize}
+
+This segregation ensures that expensive GPU compute is consumed only during active
+simulation execution and scales to zero between requests, enabling aggressive
+low-tier pricing without margin erosion.
+
+\subsection{Go-to-Market: White-Label Agency Distribution}
+
+Direct-to-brand sales cycles for complex analytics SaaS are protracted and
+capital-intensive. The primary distribution strategy leverages existing digital
+marketing agencies as localised resale channels through a \textbf{white-label
+partnership programme}.
+
+Under this model, agencies purchase wholesale access to the platform infrastructure,
+completely rebrand the application with their own corporate identity and custom domains,
+and resell the service to their end-clients as a proprietary, in-house analytical
+advantage. The agency controls the retail pricing, manages the billing relationship,
+and provides tier-1 support. The Brand Simulation Engine operates silently in the
+background, powering the serverless infrastructure and pushing algorithmic updates.
+
+This structure delivers three compounding advantages:
+
+\begin{enumerate}[leftmargin=*, label=(\roman*)]
+  \item \textbf{Capital-efficient scaling.}~The operational burden of localised sales,
+        onboarding, and support shifts to agency partners, enabling geographic expansion
+        without proportional headcount growth.
+  \item \textbf{Sticky revenue.}~Agencies embed the platform into their daily workflows
+        and client reporting, transforming the SaaS from a discretionary tool into core
+        operational infrastructure with high switching costs.
+  \item \textbf{Retail margin arbitrage.}~Agencies purchasing wholesale sub-accounts
+        at \$49--99/month retail the dashboard to SMB clients at \$197--497/month,
+        generating substantial recurring software revenue that incentivises aggressive
+        client acquisition.
+\end{enumerate}
+
+\subsection{Emerging Market Penetration: The Bangladesh Playbook}
+
+Bangladesh presents a greenfield opportunity characterised by massive F-commerce volume
+(300{,}000+ Facebook-based merchants), rapidly growing digital ad spend, and zero
+existing predictive marketing intelligence competitors. The go-to-market strategy for
+this market operates across four axes:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{(\arabic*)}]
+  \item \textbf{Hyper-Localised Pricing.}~The Starter tier is denominated in BDT and
+        priced below the cost of a single agency retainer hour, ensuring that local
+        agencies operating on Tk\,10{,}000--50{,}000 monthly client retainers can
+        profitably integrate the platform.
+  \item \textbf{Payment Infrastructure Integration.}~Direct integration with
+        \textbf{bKash Auto Pay} (70M+ active users) enables frictionless automated
+        recurring BDT subscription billing, bypassing the high failure rates and
+        unavailability of Western payment rails (Stripe, PayPal). Secondary gateway
+        support includes \textbf{SSLCommerz}, \textbf{Nagad}, and
+        \textbf{Portwallet} for developer-friendly API routing.
+  \item \textbf{Institutional Partnerships.}~Strategic alignment with the
+        \textbf{e-Commerce Association of Bangladesh (e-CAB)} and the
+        \textbf{Bangladesh Association of Software and Information Services (BASIS)}
+        provides access to subsidised SME SaaS distribution channels, government
+        digitisation initiatives under the ``Smart Bangladesh'' programme, and
+        corporate tax exemptions for software companies.
+  \item \textbf{Limit Pricing for Entry Deterrence.}~Initial pricing is set
+        deliberately below the static monopoly optimum to signal to potential local
+        competitors that the sector does not offer easy margins, deterring fast-follower
+        entry and protecting long-term market structure.
+\end{enumerate}
+
+\subsection{Unit Economics and Financial Projections}
+
+The business model targets the following unit economics at scale:
+
+\begin{table}[H]
+  \centering
+  \caption{Target Unit Economics}
+  \label{tab:uniteconomics}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{5.0cm} X}
+    \toprule
+    Metric & Target \\
+    \midrule
+    Gross Margin & 75--85\% (serverless architecture eliminates idle compute) \\
+    \addlinespace
+    Customer Acquisition Cost (CAC) & Minimised via white-label agency distribution; agencies bear local sales costs \\
+    \addlinespace
+    Lifetime Value (LTV) & Maximised by embedding into agency workflows; projected 18--24 month average retention \\
+    \addlinespace
+    LTV:CAC Ratio & Target $>$5:1 via agency-driven acquisition \\
+    \addlinespace
+    Payback Period & $<$90 days; platform demonstrably improves client ROAS within first quarter \\
+    \addlinespace
+    Net Revenue Retention (NRR) & $>$120\% via usage-based expansion and tier upgrades \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The combination of serverless infrastructure (protecting COGS), white-label distribution
+(minimising CAC), and demonstrable ROAS improvement (maximising retention and expansion)
+creates a capital-efficient flywheel suitable for bootstrapped growth or venture
+acceleration.
+
+% ────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -959,7 +1143,7 @@ problem without dependence on scarce historical data.
 
 Critically, the architecture is not merely theoretically sound---it is engineered for the
 physical realities of the Bangladeshi market. Font subsetting, ISR edge caching, selective
-prefetching, and an offline Ollama-powered LLM fallback ensure the platform remains
+prefetching, and an offline Ollama-powered Gemma4 LLM fallback ensure the platform remains
 fully functional on 2G/3G mobile networks. Native Bangla NLP via \texttt{banglabert} and
 \texttt{bge-m3} makes the system culturally legible to local SME operators, removing the
 language barrier that historically excluded them from advanced analytics tools.
